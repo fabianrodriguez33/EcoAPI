@@ -53,6 +53,7 @@ public class SemillaDeDatos implements CommandLineRunner {
 		MATRIZ.put("SUPERVISOR", List.of("PUNTO_LEER", "PESAJE_LEER", "PESAJE_CREAR", "PESAJE_EDITAR",
 				"PESAJE_EDITAR_AJENOS", "PESAJE_ANULAR", "RUTA_CERRAR"));
 		MATRIZ.put("ADMINISTRADOR", List.of("PUNTO_LEER", "PESAJE_LEER", "PUNTO_GESTIONAR"));
+		MATRIZ.put("AUDITOR", List.of("PUNTO_LEER", "PESAJE_LEER"));
 	}
 
 	private final PrivilegioRepository privilegios;
