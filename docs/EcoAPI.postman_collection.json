@@ -1,0 +1,415 @@
+{
+  "info": {
+    "name": "EcoAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base",
+      "value": "http://localhost:8080/api/v1"
+    },
+    {
+      "key": "tokenOperario",
+      "value": ""
+    },
+    {
+      "key": "tokenSupervisor",
+      "value": ""
+    },
+    {
+      "key": "tokenAdmin",
+      "value": ""
+    },
+    {
+      "key": "tokenAlterado",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Login operario1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/auth/login"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"usuario\": \"operario1\", \"contrasena\": \"Eco2026*\"}"
+        }
+      }
+    },
+    {
+      "name": "Login supervisor1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/auth/login"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"usuario\": \"supervisor1\", \"contrasena\": \"Eco2026*\"}"
+        }
+      }
+    },
+    {
+      "name": "Login admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/auth/login"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"usuario\": \"admin\", \"contrasena\": \"Eco2026*\"}"
+        }
+      }
+    },
+    {
+      "name": "401 sin token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/rutas/dia"
+        }
+      }
+    },
+    {
+      "name": "401 token alterado",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenAlterado}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/rutas/dia"
+        }
+      }
+    },
+    {
+      "name": "Ruta del dia",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/rutas/dia"
+        }
+      }
+    },
+    {
+      "name": "Puntos por zona",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/puntos?zona=Sur&pagina=0&tamanio=2"
+        }
+      }
+    },
+    {
+      "name": "Pesajes de un punto",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/puntos/1/pesajes"
+        }
+      }
+    },
+    {
+      "name": "201 registrar pesaje",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"rutaId\": 1, \"puntoId\": 4, \"material\": \"Vidrio\", \"pesoBruto\": 50.5, \"tara\": 4.25}"
+        }
+      }
+    },
+    {
+      "name": "400 validacion",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"rutaId\": 1, \"puntoId\": 4, \"material\": \"\", \"pesoBruto\": 5, \"tara\": 9}"
+        }
+      }
+    },
+    {
+      "name": "400 neto no positivo (RN-03)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"rutaId\": 1, \"puntoId\": 4, \"material\": \"Vidrio\", \"pesoBruto\": 5, \"tara\": 9}"
+        }
+      }
+    },
+    {
+      "name": "409 ruta cerrada (RN-01)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"rutaId\": 2, \"puntoId\": 7, \"material\": \"Papel\", \"pesoBruto\": 50, \"tara\": 4}"
+        }
+      }
+    },
+    {
+      "name": "403 operario anula",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes/3?motivo=prueba"
+        }
+      }
+    },
+    {
+      "name": "403 admin registra",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenAdmin}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"rutaId\": 1, \"puntoId\": 1, \"material\": \"x\", \"pesoBruto\": 5, \"tara\": 1}"
+        }
+      }
+    },
+    {
+      "name": "403 pesaje ajeno (RN-02)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes/4"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"material\": \"Vidrio\", \"pesoBruto\": 80, \"tara\": 9}"
+        }
+      }
+    },
+    {
+      "name": "200 supervisor corrige",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenSupervisor}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes/4"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"material\": \"Vidrio\", \"pesoBruto\": 81, \"tara\": 9}"
+        }
+      }
+    },
+    {
+      "name": "204 anular",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenSupervisor}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/pesajes/3?motivo=Peso%20mal%20tomado"
+        }
+      }
+    },
+    {
+      "name": "409 cerrar ruta (RN-04)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenSupervisor}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/rutas/1/cerrar"
+        }
+      }
+    },
+    {
+      "name": "Usuario actual",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenOperario}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base}}/auth/me"
+        }
+      }
+    }
+  ]
+}
