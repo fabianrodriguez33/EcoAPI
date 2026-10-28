@@ -40,6 +40,9 @@ public class Pesaje {
 
 	private String observacion;
 
+	/** Humedad estimada del material en porcentaje (0 a 100); opcional. */
+	private Double humedadEstimada;
+
 	private boolean anulado;
 	private String motivoAnulacion;
 
@@ -57,6 +60,18 @@ public class Pesaje {
 		this.tara = tara;
 		this.pesoNeto = pesoNeto;
 		this.observacion = observacion;
+	}
+
+	public Pesaje(Ruta ruta, PuntoAcopio punto, Usuario operario, LocalDateTime fechaHora, String material,
+				  double pesoBruto, double tara, double pesoNeto, String observacion, Double humedadEstimada) {
+		this(ruta, punto, operario, fechaHora, material, pesoBruto, tara, pesoNeto, observacion);
+		this.humedadEstimada = humedadEstimada;
+	}
+
+	public void corregir(String material, double pesoBruto, double tara, double pesoNeto, String observacion,
+						 Double humedadEstimada) {
+		this.humedadEstimada = humedadEstimada;
+		corregir(material, pesoBruto, tara, pesoNeto, observacion);
 	}
 
 	public void corregir(String material, double pesoBruto, double tara, double pesoNeto, String observacion) {
@@ -110,6 +125,10 @@ public class Pesaje {
 
 	public String getObservacion() {
 		return observacion;
+	}
+
+	public Double getHumedadEstimada() {
+		return humedadEstimada;
 	}
 
 	public boolean isAnulado() {
