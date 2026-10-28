@@ -18,7 +18,7 @@ docker compose up -d --build
 
 Queda en `http://localhost:8080`. Desde el emulador Android: `http://10.0.2.2:8080`.
 
-Usuarios de prueba (contraseña `Eco2026*`): `operario1`, `operario2` (OPERARIO), `supervisor1` (SUPERVISOR), `admin` (ADMINISTRADOR).
+Usuarios de prueba (contraseña `Eco2026*`): `operario1`, `operario2` (OPERARIO), `supervisor1` (SUPERVISOR), `admin` (ADMINISTRADOR), `auditor1` (AUDITOR).
 
 ## Estructura de paquetes (`pe.upeu.ecorecicla`)
 
@@ -59,6 +59,8 @@ La matriz vive en la base (`rol_privilegio`), cargada por `SemillaDeDatos`. Los 
 | PESAJE_EDITAR_AJENOS | no | sí | no |
 | PESAJE_ANULAR, RUTA_CERRAR | no | sí | no |
 | PUNTO_GESTIONAR | no | no | sí |
+
+El rol AUDITOR solo tiene `PUNTO_LEER` y `PESAJE_LEER`: se agregó únicamente en la matriz de `SemillaDeDatos`, sin tocar el filtro de seguridad ni los controladores.
 
 `PESAJE_EDITAR_AJENOS` es un privilegio adicional: permite a RN-02 distinguir quién corrige pesajes ajenos sin comparar nombres de rol.
 
