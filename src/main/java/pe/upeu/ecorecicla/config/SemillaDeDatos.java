@@ -96,6 +96,7 @@ public class SemillaDeDatos implements CommandLineRunner {
 		Usuario operario2 = usuarios.save(new Usuario("operario2", clave, "Rosa Huanca Condori", rolesPorNombre.get("OPERARIO")));
 		Usuario supervisor = usuarios.save(new Usuario("supervisor1", clave, "Carmen Flores Rojas", rolesPorNombre.get("SUPERVISOR")));
 		usuarios.save(new Usuario("admin", clave, "Administrador del Sistema", rolesPorNombre.get("ADMINISTRADOR")));
+		usuarios.save(new Usuario("auditor1", clave, "Marta Salas Vega", rolesPorNombre.get("AUDITOR")));
 
 		List<PuntoAcopio> p = new ArrayList<>(puntos.saveAll(List.of(
 				new PuntoAcopio("Textiles Andinos S.A.C.", "Av. Industrial 120", "Centro", "Carton"),
