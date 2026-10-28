@@ -1,0 +1,8 @@
+services:
+  ecoapi:
+    build: .
+    container_name: ecoapi
+    ports:
+      - "8080:8080"
+    environment:
+      ECO_JWT_SECRETO: "ecoRecicla-secreto-jwt-unidad2-2026-clave-de-al-menos-256-bits"
