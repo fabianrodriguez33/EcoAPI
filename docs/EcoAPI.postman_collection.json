@@ -43,7 +43,18 @@
           "mode": "raw",
           "raw": "{\"usuario\": \"operario1\", \"contrasena\": \"Eco2026*\"}"
         }
-      }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set('tokenOperario', pm.response.json().token);"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Login supervisor1",
@@ -62,7 +73,18 @@
           "mode": "raw",
           "raw": "{\"usuario\": \"supervisor1\", \"contrasena\": \"Eco2026*\"}"
         }
-      }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set('tokenSupervisor', pm.response.json().token);"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "Login admin",
@@ -81,7 +103,18 @@
           "mode": "raw",
           "raw": "{\"usuario\": \"admin\", \"contrasena\": \"Eco2026*\"}"
         }
-      }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.collectionVariables.set('tokenAdmin', pm.response.json().token);"
+            ]
+          }
+        }
+      ]
     },
     {
       "name": "401 sin token",
@@ -109,7 +142,7 @@
           },
           {
             "key": "Authorization",
-            "value": "Bearer {{tokenAlterado}}"
+            "value": "Bearer {{tokenOperario}}x"
           }
         ],
         "url": {
