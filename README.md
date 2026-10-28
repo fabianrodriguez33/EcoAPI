@@ -45,6 +45,8 @@ Usuarios de prueba (contraseña `Eco2026*`): `operario1`, `operario2` (OPERARIO)
 | Corregir pesaje (RN-01, RN-02, RN-03) | `PUT /pesajes/{id}` | PESAJE_EDITAR | 200 |
 | Anular pesaje (marca, no borra) | `DELETE /pesajes/{id}?motivo=` | PESAJE_ANULAR | 204 |
 
+`POST /pesajes` y `PUT /pesajes/{id}` aceptan `humedadEstimada` (opcional, 0 a 100) y los pesajes la devuelven.
+
 Errores: 400 (con `validationErrors`), 401 (token ausente, alterado o vencido), 403 (sin privilegio o RN-02), 404, 409 (RN-01, RN-04), 500. Todos usan el formato `timestamp/status/error/message/path/validationErrors`. Los listados usan el envoltorio `contenido/pagina/tamanio/totalElementos/totalPaginas/ultima`.
 
 ## Roles y privilegios

@@ -146,6 +146,7 @@ public class SemillaDeDatos implements CommandLineRunner {
 	private Pesaje pesaje(Ruta ruta, PuntoAcopio punto, Usuario operario, LocalDateTime fechaHora, String material,
 						  double bruto, double tara, String observacion) {
 		double neto = Math.round((bruto - tara) * 100.0) / 100.0;
-		return pesajes.save(new Pesaje(ruta, punto, operario, fechaHora, material, bruto, tara, neto, observacion));
+		double humedad = Math.round((5 + (Math.abs(material.hashCode()) % 140) / 10.0) * 10.0) / 10.0;
+		return pesajes.save(new Pesaje(ruta, punto, operario, fechaHora, material, bruto, tara, neto, observacion, humedad));
 	}
 }
