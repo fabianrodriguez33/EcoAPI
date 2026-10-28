@@ -68,7 +68,7 @@ public class PesajeService {
 		Usuario operario = usuarios.findById(actual.id())
 				.orElseThrow(() -> ErrorDeNegocio.noAutenticado("El usuario del token ya no existe"));
 		Pesaje pesaje = new Pesaje(ruta, punto, operario, ahora(), peticion.material().trim(),
-				peticion.pesoBruto(), peticion.tara(), neto, limpiar(peticion.observacion()));
+				peticion.pesoBruto(), peticion.tara(), neto, limpiar(peticion.observacion()), peticion.humedadEstimada());
 		return aDto(pesajes.save(pesaje));
 	}
 
@@ -91,7 +91,7 @@ public class PesajeService {
 		}
 		double neto = calcularNeto(peticion.pesoBruto(), peticion.tara());
 		pesaje.corregir(peticion.material().trim(), peticion.pesoBruto(), peticion.tara(), neto,
-				limpiar(peticion.observacion()));
+				limpiar(peticion.observacion()), peticion.humedadEstimada());
 		return aDto(pesaje);
 	}
 
@@ -130,6 +130,6 @@ public class PesajeService {
 		return new PesajeDto(p.getId(), p.getPunto().getId(), p.getRuta().getId(),
 				DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(p.getFechaHora()), p.getMaterial(), p.getPesoBruto(),
 				p.getTara(), p.getPesoNeto(), p.getOperario().getUsername(), p.isAnulado(),
-				p.getMotivoAnulacion(), p.getObservacion());
+				p.getMotivoAnulacion(), p.getObservacion(), p.getHumedadEstimada());
 	}
 }

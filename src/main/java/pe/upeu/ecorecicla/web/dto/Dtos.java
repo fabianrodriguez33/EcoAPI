@@ -1,5 +1,7 @@
 package pe.upeu.ecorecicla.web.dto;
 
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -59,7 +61,7 @@ public final class Dtos {
 
 	public record PesajeDto(Long id, Long puntoId, Long rutaId, String fechaHora, String material, double pesoBruto,
 							double tara, double pesoNeto, String operario, boolean anulado, String motivoAnulacion,
-							String observacion) {
+							String observacion, Double humedadEstimada) {
 	}
 
 	public record PesajeCrearRequest(
@@ -68,13 +70,15 @@ public final class Dtos {
 			@NotBlank(message = "El material es obligatorio") @Size(max = 60, message = "Maximo 60 caracteres") String material,
 			@NotNull(message = "El peso bruto es obligatorio") @Positive(message = "El peso bruto debe ser mayor que cero") Double pesoBruto,
 			@NotNull(message = "La tara es obligatoria") @PositiveOrZero(message = "La tara no puede ser negativa") Double tara,
-			@Size(max = 200, message = "Maximo 200 caracteres") String observacion) {
+			@Size(max = 200, message = "Maximo 200 caracteres") String observacion,
+			@DecimalMin(value = "0", message = "La humedad no puede ser negativa") @DecimalMax(value = "100", message = "La humedad no puede superar 100") Double humedadEstimada) {
 	}
 
 	public record PesajeEditarRequest(
 			@NotBlank(message = "El material es obligatorio") @Size(max = 60, message = "Maximo 60 caracteres") String material,
 			@NotNull(message = "El peso bruto es obligatorio") @Positive(message = "El peso bruto debe ser mayor que cero") Double pesoBruto,
 			@NotNull(message = "La tara es obligatoria") @PositiveOrZero(message = "La tara no puede ser negativa") Double tara,
-			@Size(max = 200, message = "Maximo 200 caracteres") String observacion) {
+			@Size(max = 200, message = "Maximo 200 caracteres") String observacion,
+			@DecimalMin(value = "0", message = "La humedad no puede ser negativa") @DecimalMax(value = "100", message = "La humedad no puede superar 100") Double humedadEstimada) {
 	}
 }
